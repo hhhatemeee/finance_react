@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MUIAppBar from '@mui/material/AppBar'
+import MUIAppBar, { AppBarProps as MUIAppBarProps } from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import CssBaseline from '@mui/material/CssBaseline'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
@@ -30,12 +30,16 @@ function HideOnScroll(props: Props) {
   )
 }
 
-export const AppBar = (props: Props) => {
+export const AppBar = (props: MUIAppBarProps) => {
   return (
     <>
       <CssBaseline />
-      <HideOnScroll {...props}>
-        <MUIAppBar color='default' sx={{ boxShadow: '1px 1px  #e0e0e0', background: '#ffffff' }}>
+      <HideOnScroll>
+        <MUIAppBar
+          {...props}
+          color='default'
+          sx={{ boxShadow: '1px 1px  #e0e0e0', background: '#ffffff' }}
+        >
           <Toolbar>{props.children}</Toolbar>
         </MUIAppBar>
       </HideOnScroll>
