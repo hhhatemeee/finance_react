@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from '@mui/material'
-import { Dots } from '../../shared/Dots'
+import { Dots } from '../../shared/components/Dots'
 import { Button } from '../../shared/Button'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../app/constants/routes'

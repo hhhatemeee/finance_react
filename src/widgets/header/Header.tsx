@@ -1,31 +1,46 @@
 import { FC } from 'react'
-import { AppBar } from '../../shared/AppBar'
+import { AppBar } from '../../shared/components/AppBar'
 import { Grid, Typography } from '@mui/material'
-import { CustomSvgIcon } from '../../shared/CustomSvgIcon'
+import { CustomSvgIcon } from '../../shared/components/CustomSvgIcon'
 import { Button } from '../../shared/Button'
 import logo from '../../assets/logo_color_2.svg'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../app/constants/routes'
 
-export const Header: FC = () => {
+export const Header: FC<{ disableAnimate?: boolean; hideAuth?: boolean }> = ({
+  disableAnimate,
+  hideAuth,
+}) => {
   const navigate = useNavigate()
 
   const handleLogin = () => {
     navigate(ROUTES.LOGIN)
   }
 
+  const handleHome = () => {
+    navigate(ROUTES.MAIN)
+  }
+
+  const animatedClassnames = disableAnimate
+    ? undefined
+    : 'transition-all animate-fade animate-down-2'
+
   return (
-    <AppBar className='transition-all animate-fade animate-down-2'>
+    <AppBar className={animatedClassnames}>
       <Grid
         container
         justifyContent={'space-between'}
         flexWrap={'nowrap'}
-        className='transition-all animate-fade animate-down-2'
+        className={animatedClassnames}
         px={'10%'}
       >
         <Grid item container alignItems={'center'} gap={1} ml={2}>
           <Grid item height={40}>
-            <CustomSvgIcon src={logo} sx={{ width: 40, height: 40 }} />
+            <CustomSvgIcon
+              src={logo}
+              sx={{ width: 40, height: 40, cursor: 'pointer' }}
+              onClick={handleHome}
+            />
           </Grid>
           <Grid item>
             <Typography variant='h6' component='div' color={'#5771f0'} fontWeight={'600px'}>
@@ -39,16 +54,18 @@ export const Header: FC = () => {
               Donate me
             </Button>
           </Grid>
-          <Grid item>
-            <Button
-              variant='outlined'
-              color='primary'
-              sx={{ height: 40, width: 150, boxShadow: '0 1px 3px 0 #e0e0e6' }}
-              onClick={handleLogin}
-            >
-              Sing in / Sing up
-            </Button>
-          </Grid>
+          {!hideAuth && (
+            <Grid item>
+              <Button
+                variant='outlined'
+                color='primary'
+                sx={{ height: 40, width: 150, boxShadow: '0 1px 3px 0 #e0e0e6' }}
+                onClick={handleLogin}
+              >
+                Sing in / Sing up
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </AppBar>
